@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Necesitas ayuda? · Propón tu necesidad como TFG</title>
+<meta name="description" content="Propón una necesidad docente, de investigación o de tu departamento como tema de TFG. Un estudiante la desarrollará y tú supervisarás el resultado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     CONFIGURACIÓN RÁPIDA: cambia estos colores si quieres usar
+     los de tu institución.
+     ============================================================ */
+  :root {
+    --ink: #13233F;        /* texto principal / azul tinta */
+    --paper: #F6F7F9;      /* fondo */
+    --surface: #FFFFFF;    /* bloques */
+    --accent: #1F5FD1;     /* botones y enlaces */
+    --mark: #FFD95C;       /* subrayado tipo marcador */
+    --muted: #55607A;      /* texto secundario */
+    --line: #D9DEE7;       /* bordes */
+    --on-accent: #FFFFFF;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E8ECF4; --paper: #0F1729; --surface: #172238;
+      --accent: #7FA8FF; --mark: #8C7318; --muted: #A3AEC6;
+      --line: #2A3857; --on-accent: #0F1729;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E8ECF4; --paper: #0F1729; --surface: #172238;
+    --accent: #7FA8FF; --mark: #8C7318; --muted: #A3AEC6;
+    --line: #2A3857; --on-accent: #0F1729;
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; }
+  h1, h2, h3 {
+    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.1;
+    margin: 0 0 .5em;
+  }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); font-weight: 700; }
+  h3 { font-size: 1.2rem; font-weight: 700; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+  section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+
+  /* ---------- Cabecera ---------- */
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding-block: 1.25rem;
+  }
+  .brand { font-weight: 700; font-size: .95rem; color: var(--muted); }
+  .brand strong { color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-top: clamp(2rem, 6vw, 4rem); padding-bottom: clamp(4rem, 9vw, 7rem); }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 8.5vw, 6.25rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: .35em;
+  }
+  .hero .lead { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 34em; color: var(--muted); }
+  .hero .lead b { color: var(--ink); }
+  .qmark {
+    font-family: "Bricolage Grotesque", serif;
+    font-weight: 800;
+    font-size: clamp(10rem, 28vw, 22rem);
+    line-height: .8;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--accent);
+    user-select: none;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: .5rem; padding: 1rem 1.6rem;
+    background: var(--accent); color: var(--on-accent);
+    font-weight: 700; font-size: 1.05rem; text-decoration: none;
+    border-radius: 999px;
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active { transform: scale(.98); }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+  .cta-note { font-size: .95rem; color: var(--muted); }
+
+  /* ---------- Cómo funciona ---------- */
+  .how { background: var(--surface); border-block: 1px solid var(--line); }
+  .steps {
+    list-style: none; padding: 0; margin: 2.5rem 0 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+    counter-reset: step;
+  }
+  .steps li { counter-increment: step; position: relative; padding-top: 3.25rem; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; top: 0; left: 0;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 2.5rem; line-height: 1;
+    color: var(--accent);
+  }
+  .steps li:not(:last-child)::after {
+    content: ""; position: absolute; top: 1.2rem; left: 2.5rem; right: -1.5rem;
+    border-top: 2px dashed var(--line);
+  }
+  .steps p { color: var(--muted); margin: 0; }
+
+  /* ---------- Temas ---------- */
+  .topics-intro { max-width: 40em; color: var(--muted); }
+  .chips { list-style: none; padding: 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: .7rem; }
+  .chips li {
+    padding: .55rem 1rem; border: 1.5px solid var(--line); border-radius: 999px;
+    background: var(--surface); font-weight: 700; font-size: .98rem;
+  }
+
+  /* ---------- Beneficios ---------- */
+  .gain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem; }
+  .gain h3 {
+    display: inline;
+    background: linear-gradient(transparent 58%, var(--mark) 58%);
+    padding-inline: .1em;
+  }
+  .gain ul { margin: 1rem 0 0; padding-left: 1.2rem; }
+  .gain li { margin-bottom: .45rem; }
+
+  /* ---------- Preguntas frecuentes ---------- */
+  .faq { background: var(--surface); border-block: 1px solid var(--line); }
+  .faq-list { max-width: 46rem; margin-top: 2rem; }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    cursor: pointer; list-style: none; padding: 1.1rem 2rem 1.1rem 0; position: relative;
+    font-weight: 700; font-size: 1.08rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+"; position: absolute; right: .25rem; top: .85rem;
+    font-size: 1.5rem; color: var(--accent); transition: transform .2s ease;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); padding-right: 2rem; }
+
+  /* ---------- Cierre ---------- */
+  .closing { text-align: center; }
+  .closing h2 { font-size: clamp(2rem, 5vw, 3.25rem); }
+  .closing p { color: var(--muted); max-width: 32em; margin-inline: auto; }
+  .closing .cta-row { justify-content: center; }
+
+  footer { padding-block: 2rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .qmark { display: none; }
+    .steps { grid-template-columns: 1fr; gap: 2rem; }
+    .steps li:not(:last-child)::after { display: none; }
+    .gain-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <!-- EDITA: nombre de tu unidad o programa -->
+  <span class="brand"><strong>Programa TFG con impacto</strong> · Universidad</span>
+  <a class="btn js-form-link" href="#" target="_blank" rel="noopener" style="padding:.6rem 1.1rem;font-size:.95rem;width:auto">Proponer mi necesidad</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>¿Necesitas ayuda?</h1>
+        <p class="lead">¿Tienes una necesidad en tu docencia, tu investigación o tu departamento que no has podido resolver por falta de tiempo o recursos? <b>Conviértela en un Trabajo de Fin de Grado.</b> Un estudiante la desarrollará y tú supervisarás que el resultado responda a lo que realmente necesitas.</p>
+        <div class="cta-row">
+          <a class="btn js-form-link" href="#" target="_blank" rel="noopener">Proponer mi necesidad</a>
+          <span class="cta-note">Te llevará unos 3 minutos. Puedes enviar tantas propuestas como quieras.</span>
+        </div>
+      </div>
+      <div class="qmark" aria-hidden="true">?</div>
+    </div>
+  </section>
+
+  <section class="how" id="como-funciona">
+    <div class="wrap">
+      <h2>Cómo funciona</h2>
+      <ol class="steps">
+        <li>
+          <h3>Cuéntanos tu necesidad</h3>
+          <p>Completa el formulario con tu departamento, campus, el tema y qué te gustaría resolver.</p>
+        </li>
+        <li>
+          <h3>La asignamos a un estudiante</h3>
+          <p>Revisamos la propuesta y la ofrecemos como tema de TFG a un estudiante con el perfil adecuado.</p>
+        </li>
+        <li>
+          <h3>Supervisas el desarrollo</h3>
+          <p>Acompañas al estudiante durante el TFG y te aseguras de que el resultado te sea útil.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="temas">
+    <div class="wrap">
+      <h2>¿Sobre qué puedes proponer?</h2>
+      <p class="topics-intro">Casi cualquier necesidad puede convertirse en un buen TFG. Estos son algunos ejemplos para inspirarte:</p>
+      <!-- EDITA: ajusta los temas a tu institución -->
+      <ul class="chips">
+        <li>Inteligencia artificial en la docencia</li>
+        <li>Uso de la plataforma educativa</li>
+        <li>Diseño o rediseño de un curso</li>
+        <li>Evaluación y rúbricas</li>
+        <li>Materiales didácticos digitales</li>
+        <li>Metodologías activas</li>
+        <li>Formación docente</li>
+        <li>Investigación educativa</li>
+        <li>Inclusión y accesibilidad</li>
+        <li>Proyectos con estudiantes</li>
+        <li>Análisis de datos</li>
+        <li>Herramientas o aplicaciones a medida</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="beneficios" style="padding-top:0">
+    <div class="wrap">
+      <h2>Ganamos todos</h2>
+      <div class="gain-grid">
+        <div class="gain">
+          <h3>Para ti</h3>
+          <ul>
+            <li>Resuelves una necesidad real que tenías pendiente.</li>
+            <li>Diriges el trabajo hacia lo que de verdad te sirve.</li>
+            <li>Obtienes un resultado aplicable en tu día a día.</li>
+          </ul>
+        </div>
+        <div class="gain">
+          <h3>Para el estudiante</h3>
+          <ul>
+            <li>Trabaja en un proyecto con impacto real.</li>
+            <li>Cuenta con la guía de un profesor que conoce el problema.</li>
+            <li>Termina el grado con una experiencia que suma a su perfil.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="preguntas">
+    <div class="wrap">
+      <h2>Preguntas frecuentes</h2>
+      <!-- EDITA: ajusta las respuestas a las condiciones reales del programa -->
+      <div class="faq-list">
+        <details>
+          <summary>¿Puedo proponer más de una necesidad?</summary>
+          <p>Sí. Envía el formulario una vez por cada necesidad o idea que quieras proponer.</p>
+        </details>
+        <details>
+          <summary>¿Qué implica supervisar el TFG?</summary>
+          <p>Acompañar al estudiante durante el desarrollo, orientar el trabajo hacia tu necesidad y revisar los avances en las reuniones que acordéis.</p>
+        </details>
+        <details>
+          <summary>¿Se garantiza que mi propuesta se asigne?</summary>
+          <p>Revisaremos todas las propuestas y te contactaremos para confirmar si puede ofrecerse como TFG en la próxima convocatoria.</p>
+        </details>
+        <details>
+          <summary>¿Quién puede enviar propuestas?</summary>
+          <p>Cualquier profesor de la universidad. Necesitarás iniciar sesión con tu cuenta institucional para completar el formulario.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>¿Tienes algo en mente?</h2>
+      <p>Cuéntanoslo. Nosotros nos encargamos de encontrar al estudiante.</p>
+      <div class="cta-row">
+        <a class="btn js-form-link" href="#" target="_blank" rel="noopener">Proponer mi necesidad</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <!-- EDITA: nombre de la unidad y correo de contacto -->
+    <span>Programa TFG con impacto</span>
+    <span>¿Dudas? Escríbenos a <a href="mailto:correo@tuuniversidad.es">correo@tuuniversidad.es</a></span>
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+     PEGA AQUÍ EL ENLACE DE TU MICROSOFT FORM
+     (Forms → Recopilar respuestas → Copiar vínculo)
+     ============================================================ */
+  const FORM_URL = "https://forms.cloud.microsoft/e/EqbVkngEMF";
+
+  document.querySelectorAll(".js-form-link").forEach(a => { a.href = FORM_URL; });
+</script>
+</body>
+</html>
